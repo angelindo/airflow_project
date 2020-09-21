@@ -39,9 +39,9 @@ class DataQualityOperator(BaseOperator):
             
             num_records = records[0][0]
             
-            if num_records<1:
-                self.log.error(f"Not even one record is found in {table}")
-                raise ValueError("Not even one record is found")
+            if num_records>0:
+                logging.error(f"At least one record is found in {table}")
+                raise ValueError(f"At least one record is found in {table}")
         
             self.log.info.info(f"Data quality on table {table} check passed with {records[0][0]} records")
         
