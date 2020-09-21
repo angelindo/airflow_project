@@ -43,6 +43,6 @@ class DataQualityOperator(BaseOperator):
                 logging.error(f"At least one record is found in {table}")
                 raise ValueError(f"At least one record is found in {table}")
         
-            self.log.info.info(f"Data quality on table {table} check passed with {num_records} records")
+            self.log.info(f"Data quality on table {table} check passed with {num_records} records")
         
         self.log.info('All checks were OK ...')
