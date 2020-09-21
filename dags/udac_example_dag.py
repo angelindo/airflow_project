@@ -2,13 +2,12 @@ from datetime import datetime, timedelta
 import os
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
-from airflow.operators import (StageToRedshiftOperator, LoadFactOperator,
-                                LoadDimensionOperator, DataQualityOperator)
+from operators import (StageToRedshiftOperator, LoadFactOperator, LoadDimensionOperator, DataQualityOperator)
 from airflow.operators.postgres_operator import PostgresOperator
 from helpers import SqlQueries
 
-AWS_KEY = os.environ.get('AWS_KEY')
-AWS_SECRET = os.environ.get('AWS_SECRET')
+# AWS_KEY = os.environ.get('AWS_KEY')
+# AWS_SECRET = os.environ.get('AWS_SECRET')
 
 default_args = {
     'owner': 'udacity',
@@ -40,8 +39,7 @@ stage_events_to_redshift = StageToRedshiftOperator(
     redshift_conn_id = 'redshift',
     destination_table = 'staging_events',
     origin_path = 's3://udacity-dend/log_data',
-    access_key = AWS_KEY,
-    secret_key = AWS_SECRET,
+    aws_credentials_id='aws_credentials',
     region = 'us-west-2',
     json_format = 's3://udacity-dend/log_json_path.json',
     dag = dag
@@ -52,8 +50,7 @@ stage_songs_to_redshift = StageToRedshiftOperator(
     redshift_conn_id = 'redshift',
     destination_table = 'staging_songs',
     origin_path = 's3://udacity-dend/song_data',
-    access_key = AWS_KEY,
-    secret_key = AWS_SECRET,
+    aws_credentials_id='aws_credentials',
     region = 'us-west-2',
     json_format = 'auto',
     dag = dag
