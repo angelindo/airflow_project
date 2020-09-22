@@ -58,3 +58,10 @@ class StageToRedshiftOperator(BaseOperator):
             json_format=self.json_format
         )
         redshift.run(copy_sql)
+#         self.log.info('StageToRedshiftOperator not implemented yet')
+
+
+
+
+
+
